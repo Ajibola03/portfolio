@@ -1,0 +1,137 @@
+[
+    {
+        "name": "EduPorch Website",
+        "slug": "eduporch",
+        "shortDescription": "This website showcases the features of <a href='https://eduporch.com/' target='_blank'>EduPorch</a>, a product by <a href='https://www.alusofttechnologies.com/'>AluSoft Technologies LTD</a>, and enables target users to register, manage accounts, and access services seamlessly—eliminating the need for direct interaction with the development team and automating the previously manual onboarding process.",
+        "description": "<p>This web application was built to showcase and support <a href='https://eduporch.com/' target='_blank'>EduPorch</a>, a product developed by <a href='https://www.alusofttechnologies.com/' target='_blank'>AluSoft Technologies LTD</a>. It allows users to register, manage their accounts, and access the platform independently—automating what was previously a manual and time-consuming onboarding process.</p>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>I collaborated with a team of developers, working on the frontend using HTML, CSS, Bootstrap, JavaScript, and jQuery, while the backend was powered by PHP and MySQL. We followed the <a href='https://www.w3schools.com/php/php_oop_what_is.asp' target='_blank'>Object-Oriented Programming (OOP)</a> paradigm to ensure the codebase was clean and scalable.</div>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>I led most of the backend development, which marked my first hands-on experience as a full-stack developer. Key features I implemented include user authentication, both basic and advanced <a href='https://www.codecademy.com/article/what-is-crud' target='_blank'>CRUD</a> operations, role-based content access, and seamless integration with <a href='https://paystack.com/' target='_blank'>Paystack</a> for payment processing.</div>",
+        "coverImage": "/images/projects/eduporch.png",
+        "images": [
+            "/images/projects/eduporch.png",
+            "/images/projects/eduporch-1.png",
+            "/images/projects/eduporch-2.png",
+            "/images/projects/eduporch-3.png",
+            "/images/projects/eduporch-4.png"
+        ],
+        "url": "https://eduporch.com",
+        "github": "",
+        "tech": [
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Javascript",
+            "JQuery",
+            "PHP",
+            "MySQL",
+            "Paystack"
+        ],
+        "favorite": true
+    },
+    {
+        "name": "FirstX",
+        "slug": "firstx",
+        "shortDescription": "FirstX is a SaaS platform by <a href='https://www.10xv.xyz/' target='_blank'>10X Ventures</a> that helps businesses acquire their first 'X' customers through smart outreach. It uses intelligent suggestions, message correction, and algorithmic enhancements to prevent spam flagging and bot detection—streamlining manual organic outreach through the Twitter API.",
+        "description": "<p><a href='https://www.firstx.ai/' target='_blank'>FirstX</a> is a SaaS platform developed by <a href='https://www.10xv.xyz/' target='_blank'>10X Ventures</a> to help businesses acquire their first 'X' customers. It leverages intelligent suggestions, message optimizations, and advanced algorithms to reduce the risk of messages being flagged as spam or accounts being marked as bots, while simplifying the otherwise manual process of organic outreach. Twitter, via the Twitter API, serves as the primary outreach channel.</p>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>I collaborated remotely with a U.S.-based team of full-stack developers. At <a href='https://www.10xv.xyz/' target='_blank' rel='noopener'>10X Ventures</a>, we primarily used <a href='https://blitzjs.com/' target='_blank'>Blitz.js</a>, a full-stack React and Node.js framework built on top of <a href='https://nextjs.org/' target='_blank'>Next.js</a> and <a href='https://expressjs.com/' target='_blank'>Express.js</a>. Styling was handled with Tailwind CSS and SCSS, and we used PostgreSQL for our database layer.</div>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>My key contributions included optimizing how the <a href='https://developer.twitter.com/en/docs' target='_blank'>Twitter API</a> was used for outreach and implementing background processing using queues to offload heavy tasks—significantly improving the application's performance and user experience.</div>",
+        "coverImage": "/images/projects/fx.png",
+        "images": [
+            "/images/projects/fx.png",
+            "/images/projects/fx-1.png",
+            "/images/projects/fx-2.png",
+            "/images/projects/fx-3.png"
+        ],
+        "url": "https://www.firstx.ai/",
+        "github": "",
+        "tech": [
+            "React",
+            "TailwindCSS",
+            "Javascript",
+            "Typescript",
+            "PostgreSQL",
+            "Node.js",
+            "Blitz.js",
+            "Prisma",
+            "Stripe"
+        ],
+        "favorite": true
+    },
+    {
+        "name": "ChurchPorch",
+        "slug": "churchporch",
+        "shortDescription": "ChurchPorch is a SaaS product by <a href='https://www.alusofttechnologies.com/'>AluSoft Technologies LTD</a>—a comprehensive and user-friendly church management solution for churches of all sizes. It offers a robust suite of tools to automate church operations, improve communication, and generate valuable insights and reports to support effective long-term administration.",
+        "description": "<p><a href='https://churchporch.ng/' target='_blank'>ChurchPorch</a> is a SaaS platform developed by <a href='https://www.alusofttechnologies.com/'>AluSoft Technologies LTD</a>. It’s designed for churches of all sizes and offers an intuitive, feature-rich environment to streamline church operations. With tools that enhance communication, automate workflows, and provide detailed analytics and reports, ChurchPorch empowers churches to manage their affairs efficiently and sustainably.</p>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>I worked with a small, Nigeria-based team of full-stack developers to bring this product to life. We used the <a href='https://laravel.com/' target='_blank'>Laravel</a> framework for backend development, Bootstrap and vanilla CSS for frontend styling, and MySQL as our database solution.</div>\n<div class='forDevs'>&nbsp;</div>\n<div class='forDevs'>Given the complexity of the project, I played a central role throughout all stages of development. I also contributed significantly to the development of the mobile application, ensuring a seamless user experience across platforms.</div>",
+        "coverImage": "/images/projects/churchporch.png",
+        "images": [
+            "/images/projects/churchporch.png",
+            "/images/projects/churchporch-1.png",
+            "/images/projects/churchporch-2.png",
+            "/images/projects/churchporch-3.png"
+        ],
+        "url": "https://churchporch.ng/",
+        "github": "",
+        "tech": [
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Javascript",
+            "JQuery",
+            "Laravel",
+            "MySQL",
+            "Flutterwave"
+        ],
+        "favorite": true
+    },
+    {
+        "name": "SYBG",
+        "slug": "sybg",
+        "shortDescription": "SYBG (Since You've Been Gone) is a no-code SaaS platform from <a href='https://www.10xv.xyz/' target='_blank'>10X Ventures</a> that allows website owners to deliver personalized product announcements directly on-site, in-app, or via email—without writing a single line of code.",
+        "description": "<p><a href='https://sybg.ai/home' target='_blank'>SYBG</a> (Since You've Been Gone) is a SaaS platform developed by <a href='https://www.10xv.xyz/' target='_blank' rel='noopener'>10X Ventures</a>. It enables website owners to deliver tailored product announcements through on-site messages, in-product notifications, or email—completely code-free.</p>\n<br />\n<p>I worked remotely with a U.S.-based team of full-stack developers on this project. We used <a href='https://blitzjs.com/' target='_blank' rel='noopener'>Blitz.js</a>, a full-stack React and Node.js framework built on <a href='https://nextjs.org/' target='_blank' rel='noopener'>Next.js</a> and <a href='https://expressjs.com/' target='_blank' rel='noopener'>Express.js</a>. Tailwind CSS and SCSS were used for styling, and PostgreSQL was our database of choice.</p>\n<br />\n<p>This was the second SaaS application I built using the React and Node.js stack, and it marked a noticeable step forward in my technical growth. One of the most challenging yet rewarding tasks I handled was integrating <a href='https://stripe.com/' target='_blank'>Stripe</a> for payment processing and managing user subscriptions. With guidance from my team, I was able to successfully implement this core functionality.</p>",
+        "coverImage": "/images/projects/sybg.png",
+        "images": [
+            "/images/projects/sybg.png",
+            "/images/projects/sybg-1.png",
+            "/images/projects/sybg-2.png",
+            "/images/projects/sybg-3.png",
+            "/images/projects/sybg-4.png"
+        ],
+        "url": "https://www.sybg.ai/",
+        "github": "",
+        "tech": [
+            "React",
+            "TailwindCSS",
+            "Javascript",
+            "Typescript",
+            "PostgreSQL",
+            "Node.js",
+            "Blitz.js",
+            "Prisma",
+            "Stripe"
+        ],
+        "favorite": true
+    },
+    {
+        "name": "ChangeLog",
+        "slug": "changelog",
+        "shortDescription": "The idea behind <a href='https://www.gochangelog.com/' target='_blank' rel='noopener'>ChangeLog</a> is to build a platform where startups can share their product journeys—including growth, challenges, and milestones—while connecting with potential users, clients, and investors.",
+        "description": "<p><a href='https://www.gochangelog.com/' target='_blank'>ChangeLog</a> was my first project with <a href='https://www.10xv.xyz/' target='_blank' rel='noopener'>10X Ventures</a>, and also my first experience working entirely remotely. The platform was created to foster a 'building-in-public' culture—giving startups a space to share updates about their products, growth, setbacks, and overall journey while engaging directly with users, clients, and potential investors.</p>\n<br />\n<p>I collaborated remotely with a U.S.-based team of full-stack developers. We used <a href='https://blitzjs.com/' target='_blank' rel='noopener'>Blitz.js</a>, a React and Node.js full-stack framework built on top of <a href='https://nextjs.org/' target='_blank' rel='noopener'>Next.js</a> and <a href='https://expressjs.com/' target='_blank' rel='noopener'>Express.js</a>. Styling was handled using Tailwind CSS and SCSS, and we used PostgreSQL for the database.</p>\n<br />\n<p>This was my first SaaS product built with React and Node.js, and it proved to be a foundational learning experience that significantly deepened my understanding of the full-stack development process.</p>",
+        "coverImage": "/images/projects/cl.png",
+        "images": [
+            "/images/projects/cl.png",
+            "/images/projects/cl-1.png",
+            "/images/projects/cl-2.png",
+            "/images/projects/cl-3.png",
+            "/images/projects/cl-4.png"
+        ],
+        "url": "https://www.gochangelog.com/",
+        "github": "",
+        "tech": [
+            "React",
+            "TailwindCSS",
+            "Javascript",
+            "Typescript",
+            "PostgreSQL",
+            "Node.js",
+            "Blitz.js",
+            "Prisma",
+            "Stripe"
+        ]
+    }
+]
