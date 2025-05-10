@@ -7,7 +7,7 @@ const ProjectsPage = () => {
     // .filter(p => p.favorite)
     return (<>
         <Navbar />
-        <section id="projects" className="text-left pt-5">
+        <section id="projects" className="text-left pt-5 px-5 md:px-0">
             <h2>Projects</h2>
             <div className="mt-3">
                 <div>

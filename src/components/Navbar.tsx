@@ -2,9 +2,9 @@ import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
 
 const Navbar = () => {
-    return (<nav id="navbar" className="w-full py-8 flex items-center justify-between">
+    return (<nav id="navbar" className="w-full py-8 flex items-center justify-between px-5 md:px-0">
         <Logo />
-        <div className="flex items-center gap-x-16">
+        <div className="flex items-center gap-x-3 md:gap-x-16">
             <NavLink to={"/"} className={({ isActive }) => `${(isActive ? "active" : "")} nav-link`}>
                 Home
             </NavLink>

@@ -1,5 +1,5 @@
 const AboutSection = () => {
-    return (<section id="about" className="text-left pt-5">
+    return (<section id="about" className="text-left pt-5 px-5 md:px-0">
         <h2>About Me</h2>
         <div className="grid grid-cols-12 bg -red-600 my-5">
             <div className="col-span-12 bg -green-500 md:col-span-6 order-3 md:order-1">
@@ -40,7 +40,7 @@ const AboutSection = () => {
                 </div>
             </div>
             <div className="col-span-12 my-[10px] bg -blue-50 md:m-0 md:col-span-2 order-2"></div>
-            <div className="col-span-12 bg -yellow-50 md:col-span-3 order-1 md:order-3">
+            <div className="col-span-12 f lex justify-center md:inline-block bg- yellow-50 md:col-span-3 order-1 md:order-3">
                 <div
                     className="relative profile-img inline-block w-[150px] h-[150px] md:w-[300px] md:h-[300px] bg-[url('/images/profile.png')] bg-contain md:bg-cover bg-no-repeat bg-center transition-all hov er:bottom-5 hov er:right-5">
                 </div>

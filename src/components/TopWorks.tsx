@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const TopWorks = () => {
     return (
-        <section id="projects" className="text-left mt-32">
+        <section id="projects" className="text-left mt-32 px-5 md:px-0">
             <h2>Some things I&apos;ve worked on</h2>
             <div>
                 {projects.filter(p => p.favorite).map((p, i) => {

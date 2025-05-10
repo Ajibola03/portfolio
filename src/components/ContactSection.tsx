@@ -9,7 +9,7 @@ const ContactSection = () => {
     return (
         <section id="contact" className="mt-32 mb-16 flex flex-col items-center justify-center gap-5">
             <h2>Contact Me</h2>
-            <h3 className="w-1/2 mx-auto">
+            <h3 className="md:w-1/2 mx-auto">
                 I&apos;m currently available for full-time or freelance opportunities. <br />
                 However, if you have a question or you just want to say hi, <br />
                 don&apos;t hesitate to contact me.
