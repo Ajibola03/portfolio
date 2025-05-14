@@ -1,5 +1,50 @@
 [
     {
+        "name": "Grantt Care Services",
+        "slug": "grantt-care-services",
+        "shortDescription": "<a href='https://granttcare.com' target='_blank'>Grantt Care Services</a> is a childcare platform dedicated to supporting families in Canada by connecting them with verified caregivers and early childhood professionals. The website highlights the brand's mission, services, and onboarding process for both families and caregivers.",
+        "description": "<p><a href='https://granttcare.com' target='_blank'>Grantt Care Services</a> is a purpose-driven childcare platform focused on empowering and supporting families across Canada. It offers a streamlined way to discover and connect with trusted, vetted caregivers and early childhood professionals who understand the unique cultural needs of the community.</p>\n<br />\n<p>I led the frontend development of the website, building a clean, modern, and mobile-responsive interface that communicates trust and professionalism. The platform showcases the company’s services, core values, and onboarding steps for both parents and caregivers.</p>\n<br />\n<p>The website was built using React and Tailwind CSS for performance and design consistency. Emphasis was placed on SEO, accessibility, and intuitive navigation to ensure an inclusive and welcoming user experience.</p>",
+        "coverImage": "/images/projects/gc-1.png",
+        "images": [
+            "/images/projects/gc-1.png",
+            "/images/projects/gc-2.png",
+            "/images/projects/gc-3.png",
+            "/images/projects/gc-4.png"
+        ],
+        "url": "https://granttcare.com",
+        "github": "",
+        "tech": [
+            "React",
+            "TailwindCSS",
+            "Javascript",
+            "Typescript",
+            "Netlify Functions"
+        ]
+    },
+    {
+        "name": "HatWizard",
+        "slug": "hatwizard",
+        "shortDescription": "<a href='https://hatwizard.com' target='_blank'>HatWizard</a> is a bespoke e-commerce website for a custom-designed hat business, showcasing unique hat collections and allowing customers to browse, customize, and place orders seamlessly. The brand emphasizes craftsmanship, individuality, and style.",
+        "description": "<p><a href='https://hatwizard.com' target='_blank'>HatWizard</a> is an e-commerce website built for a premium custom-designed hat business. The site was crafted to reflect the brand&apos;s identity—highlighting individuality, style, and the art of bespoke hat-making.</p>\n<br />\n<p>I was responsible for building a responsive and visually engaging frontend that showcases different hat collections, customization options, and a smooth shopping experience. The site includes features like product filtering, image galleries, and a user-friendly checkout system.</p>\n<br />\n<p>The tech stack includes React and Tailwind CSS for a modern UI, with integrations for inventory management and order handling on the backend. Emphasis was placed on clean design, mobile responsiveness, and fast loading speeds to ensure both elegance and performance.</p>",
+        "coverImage": "/images/projects/hatwizard.png",
+        "images": [
+            "/images/projects/hatwizard.png",
+            "/images/projects/hatwizard-1.png",
+            "/images/projects/hatwizard-2.png",
+            "/images/projects/hatwizard-3.png",
+            "/images/projects/hatwizard-4.png"
+        ],
+        "url": "https://granttcare.com",
+        "github": "",
+        "tech": [
+            "React",
+            "TailwindCSS",
+            "Javascript",
+            "Typescript",
+            "Netlify Functions"
+        ]
+    },
+    {
         "name": "EduPorch Website",
         "slug": "eduporch",
         "shortDescription": "This website showcases the features of <a href='https://eduporch.com/' target='_blank'>EduPorch</a>, a product by <a href='https://www.alusofttechnologies.com/'>AluSoft Technologies LTD</a>, and enables target users to register, manage accounts, and access services seamlessly—eliminating the need for direct interaction with the development team and automating the previously manual onboarding process.",
