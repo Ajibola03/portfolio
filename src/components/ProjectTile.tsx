@@ -29,7 +29,7 @@ const ProjectTile = ({ project, align = "left", title = "Featured Project" }: Pr
                     style={{ backgroundImage: `url(${background})` }}
                     className="lg:hidden col-span-full md:col-span-6 min-h-[300px] inline-block bg-center bg-cover bg-no-repeat">
                 </div>
-                <div className="bg-[#112240] grow p-6 my-5" dangerouslySetInnerHTML={{ __html: project.shortDescription }} />
+                <div className="bg-[#112240] text-left grow p-6 my-5" dangerouslySetInnerHTML={{ __html: project.shortDescription }} />
                 <div className="flex flex-wrap justify-center md:justify-end gap-x-3 my-2 text-sm">
                     {project.tech.map((t, i) => <span key={`${project.name}-tech-${i}`}>{t}</span>)}
                 </div>

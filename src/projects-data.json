@@ -45,6 +45,27 @@
         ]
     },
     {
+        "name": "SHUGALAND",
+        "slug": "shugaland",
+        "shortDescription": "<a href='https://www.shugaland.com/' target='_blank'>Shugaland</a> is an innovative real estate platform designed to transform property search and investment in Nigeria by connecting buyers, sellers, and agents with a seamless digital experience.",
+        "description": "<p><a href='https://www.shugaland.com/' target='_blank'>Shugaland</a> is a modern real estate platform set to revitalize Nigeria&apos;s property market by providing an intuitive, user-friendly space for property listings, investments, and real estate services. The platform aims to bridge the gap between buyers, sellers, and agents while ensuring transparency and efficiency in property transactions.</p>\n<br />\n<p>I contributed to building a responsive and aesthetically appealing frontend, ensuring smooth navigation, advanced search and filtering, and an optimized user experience for both desktop and mobile users. The site was designed to reflect professionalism while making property discovery and engagement effortless.</p>\n<br />\n<p>The tech stack included <a href='https://react.dev/' target='_blank'>React</a> and <a href='https://tailwindcss.com/' target='_blank'>Tailwind CSS</a> for the frontend, with backend integrations for property management, and authentication. The platform was also optimized for <a href='https://searchengineland.com/guide/what-is-seo' target='_blank'>SEO</a> and scalability to accommodate future growth and additional features.</p>",
+        "coverImage": "/images/projects/shugaland.png",
+        "images": [
+            "/images/projects/shugaland.png",
+            "/images/projects/shugaland-1.png",
+            "/images/projects/shugaland-2.png"
+        ],
+        "url": "https://www.shugaland.com",
+        "github": "",
+        "tech": [
+            "React",
+            "Typescript",
+            "TailwindCSS",
+            "Javascript"
+        ],
+        "favorite": true
+    },
+    {
         "name": "EduPorch Website",
         "slug": "eduporch",
         "shortDescription": "This website showcases the features of <a href='https://eduporch.com/' target='_blank'>EduPorch</a>, a product by <a href='https://www.alusofttechnologies.com/'>AluSoft Technologies LTD</a>, and enables target users to register, manage accounts, and access services seamlessly—eliminating the need for direct interaction with the development team and automating the previously manual onboarding process.",

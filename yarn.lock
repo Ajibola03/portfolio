@@ -1554,6 +1554,11 @@ word-wrap@^1.2.5:
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.5.tgz#d2c45c6dd4fbce621a66f136cbe328afd0410b34"
   integrity sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==
 
+yet-another-react-lightbox@^3.24.0:
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/yet-another-react-lightbox/-/yet-another-react-lightbox-3.24.0.tgz#007df2d1deb494e33b0c6be57e093885d38d6edd"
+  integrity sha512-j3YtwDT+fdBBhxbaxfthHMehXkUj388rpn7knc934H86bJJDBEL/m9WFGdKq2ivT3GaUPF+41GplKFbAv8bOmg==
+
 yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"

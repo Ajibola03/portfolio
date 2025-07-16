@@ -1,15 +1,23 @@
 import Navbar from "../components/Navbar";
 import projects from "../projects-data.json";
 import { Link, useParams } from "react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import NotFoundPage from "./NotFoundPage";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Button from "../components/Button";
 
 const ProjectDetailsPage = () => {
     // .filter(p => p.favorite)
     let { slug } = useParams();
-    const project = useMemo(() => projects.find(p => p.slug === slug), [projects, slug]);
+    const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
+    const project = useMemo(() => {
+        setOpen(false);
+        return projects.find(p => p.slug === slug)
+    }, [projects, slug]);
 
-    if(!project) 
+    if (!project)
         return <NotFoundPage />
 
     return (<>
@@ -52,12 +60,26 @@ const ProjectDetailsPage = () => {
                     <div className="grid grid-cols-2 gap-5 mb-5">
                         {project?.images.slice(1).map((img, i) =>
                             <div
+                                onClick={() => { setOpen(true); setIndex(i) }}
                                 key={`img-${i}`}
                                 style={{ backgroundImage: `url('${img}')` }}
-                                className="col-span-full md:col-span-1 min-h-[300px] bg-center bg-cover md:bg-contain bg-no-repeat"
+                                className="col-span-full md:col-span-1 min-h-[200px] md:min-h-[300px] bg-center bg-contain bg-no-repeat"
                             />
                         )}
                     </div>
+                    <div className="text-center mb-5">
+                        <Button onClick={() => { setOpen(true); setIndex(0) }}>View All</Button>
+                    </div>
+                    <Lightbox
+                        open={open}
+                        close={() => setOpen(false)}
+                        index={index + 1}
+                        slides={
+                            project?.images.map((img) =>
+                                ({ src: img })
+                            )
+                        }
+                    />
                 </section>
             </div>
         </section>
