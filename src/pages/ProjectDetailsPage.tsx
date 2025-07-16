@@ -60,7 +60,7 @@ const ProjectDetailsPage = () => {
                     <div className="grid grid-cols-2 gap-5 mb-5">
                         {project?.images.slice(1).map((img, i) =>
                             <div
-                                onClick={() => { setOpen(true); setIndex(i) }}
+                                onClick={() => { setOpen(true); setIndex(i + 1) }}
                                 key={`img-${i}`}
                                 style={{ backgroundImage: `url('${img}')` }}
                                 className="col-span-full md:col-span-1 min-h-[200px] md:min-h-[300px] bg-center bg-contain bg-no-repeat"
@@ -73,7 +73,7 @@ const ProjectDetailsPage = () => {
                     <Lightbox
                         open={open}
                         close={() => setOpen(false)}
-                        index={index + 1}
+                        index={index}
                         slides={
                             project?.images.map((img) =>
                                 ({ src: img })
