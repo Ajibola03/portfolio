@@ -1,0 +1,19 @@
+---
+interface Props {
+  items: { label: string; value?: string | string[] }[];
+}
+const items = Astro.props.items.filter((i) => (Array.isArray(i.value) ? i.value.length : i.value));
+---
+
+<dl class="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-rule py-5 md:grid-cols-4">
+  {
+    items.map((item) => (
+      <div>
+        <dt class="mono-label">{item.label}</dt>
+        <dd class="mt-1 font-mono text-[0.85rem] leading-relaxed">
+          {Array.isArray(item.value) ? item.value.join(', ') : item.value}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

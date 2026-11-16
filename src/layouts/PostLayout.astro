@@ -1,0 +1,74 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Post, Work } from '../lib/content';
+import { formatDate, readingTime } from '../lib/content';
+import { breadcrumbSchema, graph, ogPathFor, personRef } from '../lib/seo';
+import { SITE, absoluteUrl } from '../lib/site';
+
+interface Props {
+  post: Post;
+  related: Work[];
+}
+const { post, related } = Astro.props;
+const { data } = post;
+const path = `/writing/${post.id}`;
+
+const jsonLd = graph(
+  {
+    '@type': 'BlogPosting',
+    '@id': `${absoluteUrl(path)}#post`,
+    headline: data.title,
+    description: data.description,
+    url: absoluteUrl(path),
+    mainEntityOfPage: absoluteUrl(path),
+    image: absoluteUrl(ogPathFor(path)),
+    datePublished: data.pubDate.toISOString(),
+    dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
+    inLanguage: 'en',
+    keywords: data.tags.join(', '),
+    author: personRef,
+    publisher: personRef,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+  },
+  { '@type': 'Person', '@id': personRef['@id'], name: SITE.name, url: SITE.url },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Writing', path: '/writing' },
+    { name: data.title, path },
+  ]),
+);
+---
+
+<BaseLayout title={data.title} description={data.description} path={path} ogType="article" publishedTime={data.pubDate} jsonLd={jsonLd}>
+  <article class="wrap pt-12 md:pt-20">
+    <nav aria-label="Breadcrumb" class="mb-10 font-mono text-[0.8rem] text-muted">
+      <ol class="flex flex-wrap gap-2">
+        <li><a class="hover:text-ink" href="/">Home</a> <span aria-hidden="true">/</span></li>
+        <li><a class="hover:text-ink" href="/writing">Writing</a></li>
+      </ol>
+    </nav>
+    <header class="mx-auto max-w-[var(--measure)]">
+      <p class="font-mono text-[0.8rem] text-muted">
+        <time datetime={data.pubDate.toISOString()}>{formatDate(data.pubDate)}</time> · {readingTime(post.body)}
+      </p>
+      <h1 class="mt-4 text-step-4 leading-[1.02] tracking-[-0.02em]">{data.title}</h1>
+      <p class="mt-6 text-step-1 leading-snug text-muted">{data.description}</p>
+    </header>
+    <div class="prose mx-auto mt-12 border-t border-rule pt-10"><slot /></div>
+  </article>
+
+  {
+    related.length > 0 && (
+      <aside class="wrap mt-24" aria-labelledby="related-title">
+        <div class="border-t border-ink pt-4"><h2 id="related-title" class="mono-label">Related case studies</h2></div>
+        <ul class="grid gap-x-8 md:grid-cols-2">
+          {related.map((r) => (
+            <li class="border-b border-rule py-6">
+              <a class="font-display text-step-2 leading-tight hover:text-accent" href={`/work/${r.id}`}>{r.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
+</BaseLayout>

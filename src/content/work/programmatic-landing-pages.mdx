@@ -1,0 +1,71 @@
+---
+title: Shipping high-intent landing pages for a US fertility care provider
+shortTitle: High-intent landing pages
+description: How I built bottom-of-funnel IVF landing pages as self-contained HTML and imported them into a fertility provider's Webflow site without breaking a class.
+summary: Bottom-of-funnel keyword pages built as self-contained HTML, then mapped onto the client's existing Webflow classes so they moved cleanly from staging to production.
+era: featured
+order: 1
+role: AI Engineer, ViewEngine
+platform: Webflow
+timeline: 2025 to present
+stack: [Python, HTML/CSS, Webflow]
+# TODO(metric): add a result number (rankings, organic sessions, or conversions) once available.
+client:
+  public: false
+  descriptor: a US fertility care provider
+  name: Sunfish
+  url: https://joinsunfish.com
+  aliases: [joinsunfish]
+  liveLinks:
+    - { label: IVF Package Deals, url: "https://www.joinsunfish.com/ivf-package-deals" }
+    - { label: Reciprocal IVF, url: "https://www.joinsunfish.com/reciprocal-ivf-for-lesbian-couples" }
+    - { label: IVF Refund Programs, url: "https://www.joinsunfish.com/ivf-refund-programs" }
+related: [technical-seo-remediation, authority-statement-mapping-skill]
+---
+
+## The problem
+
+People searching for terms like "IVF package deals" or "IVF refund programs" are close to a decision. They are comparing costs and looking for a provider. A page built around one of those exact searches can meet that intent directly, where a general services page cannot.
+
+The pages had to live inside an existing Webflow site with its own class system, and they had to pass through a staging site before going to production. Anything that clashed with existing styles would break layouts on pages I never touched.
+
+## What I built
+
+I built a set of bottom-of-funnel landing pages, each targeting one high-intent keyword. Examples include IVF package deals, reciprocal IVF, and IVF refund programs.
+
+Each page started life as a self-contained HTML file. That let me write, review, and check every page outside Webflow before importing anything. Once a page was approved, I imported it into the client's Webflow site.
+
+## How it works
+
+The import step is where most of the risk sits, so I treated it as a mapping problem.
+
+1. **Reuse what exists.** Wherever the incoming markup matched an element the site already had (headings, buttons, containers, rich text), I mapped it onto the site's existing classes. The new pages inherit the site's typography and spacing, and a future design change to those classes updates the new pages too.
+2. **Prefix what is new.** Sections the site had no equivalent for got new classes with a `ve_` prefix. No new class can share a name with an existing one, so nothing collides when pages move between the staging site and production.
+3. **Check before promoting.** Pages went to staging first, then to production once the layout and content matched the approved HTML.
+
+A simplified example of the naming rule:
+
+```css
+/* Existing site classes are reused as-is */
+.heading-style-h2 { }
+.button { }
+
+/* New sections only use the ve_ prefix */
+.ve_price-compare { }
+.ve_price-compare_row { }
+.ve_refund-steps { }
+```
+
+The prefix also makes the work easy to audit later. Anyone on the client's team can search the Webflow style panel for `ve_` and see every class this project added.
+
+## Result
+
+The pages are live on the client's production Webflow site, each one built around a single purchase-intent keyword and styled with the site's own design system.
+
+{/* TODO(metric): add a result number here once ranking or traffic data is available. */}
+
+This project pairs with the [technical SEO cleanup](/work/technical-seo-remediation) I did for the same provider, which made sure pages like these are the ones search engines find in the sitemap.
+
+## Stack
+
+Python, HTML and CSS, Webflow.

@@ -1,0 +1,22 @@
+---
+import { SITE } from '../lib/site';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  number: string;
+}
+const { number } = Astro.props;
+---
+
+<section class="wrap mt-24">
+  <SectionHead number={number} title="Get in touch" id="contact" />
+  <div class="grid-12 gap-y-8 pt-10" data-reveal>
+    <p class="col-span-12 font-display text-step-3 leading-tight md:col-span-8">
+      Need pages that rank, or a workflow your team can run without you?
+    </p>
+    <div class="col-span-12 flex flex-col items-start gap-4 md:col-span-4 md:justify-end">
+      <a class="font-display text-step-1 link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      <a class="btn" href="/contact">Use the contact form</a>
+    </div>
+  </div>
+</section>

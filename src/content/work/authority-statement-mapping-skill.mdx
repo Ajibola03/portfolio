@@ -1,0 +1,70 @@
+---
+title: Turning an expert SEO task into a team-wide Claude skill
+shortTitle: Authority statement mapping skill
+description: How I packaged a repeatable keyword mapping task into a standardized Claude skill with an eval, so non-technical teammates at ViewEngine can run it.
+summary: A task only I could do, mapping each client page to its authority statements, packaged as a Claude skill with an eval so anyone on the team can run it.
+era: featured
+order: 3
+role: AI Engineer, ViewEngine
+platform: Claude
+timeline: 2025 to present
+stack: [Claude skills, Prompt engineering, Evals, Spreadsheets]
+# TODO(metric): add time saved per site or number of pages mapped.
+client:
+  public: true
+  descriptor: ViewEngine's SEO team
+  name: ViewEngine
+  url: https://www.viewengine.ai
+  liveLinks: []
+related: [programmatic-landing-pages, technical-seo-remediation]
+---
+
+## The problem
+
+For each client site, every page needs up to three "authority statements". An authority statement pairs a short-tail keyword with a long-tail keyword and gives the pair a priority. They tell the content team what each page should be known for.
+
+I was doing this mapping by hand, again and again, from two spreadsheets: one listing the client's pages and one listing the keyword pairs. It takes judgment to match a page to the right statements, which made it hard to hand off. Every new site waited on me.
+
+## What I built
+
+I packaged the task as a standardized Claude skill, with an eval, so non-technical teammates can run it themselves.
+
+The skill takes the two spreadsheets and returns a mapping for every page with fixed rules:
+
+- **1 to 3 statements per page.** Never zero without a flag, never more than three.
+- **Long-tail first.** When several statements fit, the long-tail match is preferred and listed first.
+- **Match notes.** Each assignment carries a short note explaining why the statement fits the page, so a reviewer can check the reasoning quickly.
+- **"Needs Review" as a fallback.** When no statement fits well, the page is flagged for a human. The skill never forces a weak match to fill a slot.
+
+## How it works
+
+The skill turns my judgment into written instructions plus examples. The eval keeps those instructions honest: it checks outputs against cases where the right answer is known, so a change to the prompt that makes results worse shows up before anyone relies on it.
+
+A simplified outline of the flow:
+
+```text
+Input:   pages.csv        (URL, title, page summary)
+         statements.csv   (short-tail, long-tail, priority)
+
+For each page:
+  1. Shortlist statements whose keywords match the page's topic
+  2. Rank: long-tail matches first, then by priority
+  3. Keep the top 1 to 3, each with a match note
+  4. If nothing fits well: mark "Needs Review"
+
+Output:  one row per page, ready to paste back into the sheet
+```
+
+Keeping the output in spreadsheet form mattered. The team already works in spreadsheets, so the skill fits into their process without a new tool.
+
+## Result
+
+Teammates now run the mapping themselves. The skill has been used across several client sites, including a student storage company, a behavioral health provider, and a tutoring franchise.
+
+{/* TODO(metric): add time saved per site or number of pages mapped. */}
+
+The same pattern applies to any expert task that repeats: write down the judgment, add examples, and use an eval to make sure the result holds up. The [landing page](/work/programmatic-landing-pages) and [technical SEO](/work/technical-seo-remediation) case studies show the kind of client work these statements feed into.
+
+## Stack
+
+Claude skills, prompt engineering, evals, spreadsheets.

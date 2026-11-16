@@ -1,0 +1,46 @@
+---
+title: "FirstX: Twitter outreach SaaS for early-stage founders"
+shortTitle: FirstX
+description: How I sped up FirstX, a Twitter outreach SaaS at 10X Ventures, by moving heavy Twitter API work into queue-based background jobs on Blitz.js and PostgreSQL.
+summary: Outreach SaaS built on the Twitter API. I moved heavy API work into queue-based background jobs.
+era: earlier
+kind: case
+order: 30
+year: 2022
+employer: 10X Ventures
+role: Full Stack Engineer, 10X Ventures
+platform: Web app
+timeline: 2021 to 2022
+product: FirstX
+productUrl: https://www.firstx.ai/
+stack: [Blitz.js, Next.js, React, TypeScript, Node.js, PostgreSQL, Prisma, Tailwind CSS, Twitter API]
+cover: ../../assets/projects/fx.png
+coverAlt: "FirstX homepage with the headline \"Find your First 10 customers without the overwhelm\" and a Get Started button"
+gallery:
+  - src: ../../assets/projects/fx-2.png
+    alt: "FirstX feature list: add to list in one click, detect duplicates, tag prospect status, save private notes"
+  - src: ../../assets/projects/fx-3.png
+    alt: "FirstX roadmap section listing upcoming features such as follow-up reminders, message error detection and A/B testing"
+related: [sybg]
+---
+
+## The product
+
+FirstX is a SaaS product from 10X Ventures that helps founders find their first customers through organic outreach on Twitter. It suggests who to contact, helps correct and improve messages, and steers users away from patterns that get accounts flagged as spam or as bots. The Twitter API is the main channel.
+
+## My part
+
+I worked remotely with a US-based team of full-stack engineers. The stack was Blitz.js, a full-stack React and Node.js framework built on Next.js, with PostgreSQL and Prisma for data and Tailwind CSS with SCSS for styling.
+
+My main contributions were in how the app used the Twitter API and how it handled heavy work:
+
+- **Twitter API usage.** I optimized how the outreach features called the Twitter API.
+- **Background processing with queues.** Heavy tasks moved out of the request cycle and into queued background jobs, so users were no longer waiting on slow work to finish.
+
+Together these significantly improved the app's performance and the experience of using it.
+
+{/* TODO(metric): response time or job throughput before and after the queue work, if known. */}
+
+## Where it led
+
+Designing around a third-party API's limits is still a large part of my work. My SEO pipelines at ViewEngine pull from CMS and search APIs in the same way. [SYBG](/work/sybg) was built by the same team on the same stack.

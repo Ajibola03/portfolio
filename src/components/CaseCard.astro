@@ -1,0 +1,44 @@
+---
+import type { Work } from '../lib/content';
+import { displayClient, capitalize } from '../lib/client';
+
+interface Props {
+  entry: Work;
+  index: number;
+  headingLevel?: 'h2' | 'h3';
+}
+const { entry, index, headingLevel = 'h3' } = Astro.props;
+const { data } = entry;
+const client = displayClient(entry);
+const Heading = headingLevel;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<article class="group relative grid-12 gap-y-4 border-b border-rule py-10 md:py-14" data-reveal>
+  <div class="col-span-12 flex items-baseline gap-4 md:col-span-2 md:block">
+    <span class="font-display text-step-3 leading-none text-rule transition-colors group-hover:text-accent" aria-hidden="true">{num}</span>
+  </div>
+  <div class="col-span-12 md:col-span-7">
+    {client && <p class="mono-label mb-3">{capitalize(client.label)}</p>}
+    <Heading class="text-step-3">
+      <a href={`/work/${entry.id}`} class="no-underline after:absolute after:inset-0 after:content-['']">
+        {data.title}
+      </a>
+    </Heading>
+    <p class="mt-4 max-w-[58ch] text-muted">{data.summary}</p>
+  </div>
+  <div class="col-span-12 flex flex-col justify-between gap-6 md:col-span-3">
+    {
+      data.resultHeadline && (
+        <p class="font-display text-step-1 leading-snug">
+          <span class="mono-label mb-1 block">Result</span>
+          {data.resultHeadline}
+        </p>
+      )
+    }
+    <ul class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[0.75rem] text-muted" aria-label="Stack">
+      {data.stack.map((s) => <li>{s}</li>)}
+    </ul>
+    <span class="font-mono text-[0.8rem] text-accent" aria-hidden="true">Read case study →</span>
+  </div>
+</article>

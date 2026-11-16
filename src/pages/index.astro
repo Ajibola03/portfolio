@@ -1,0 +1,126 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CaseCard from '../components/CaseCard.astro';
+import Timeline from '../components/Timeline.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import PostList from '../components/PostList.astro';
+import { SITE, absoluteUrl } from '../lib/site';
+import { getWork, getPosts } from '../lib/content';
+import { graph, personSchema, websiteSchema } from '../lib/seo';
+import profile from '../assets/profile.jpg';
+
+const { featured, earlierCases, earlierOneliners } = await getWork();
+const posts = (await getPosts()).slice(0, 3);
+const earlier = [...earlierCases, ...earlierOneliners];
+
+const photo = await getImage({ src: profile, width: 600, format: 'jpg' });
+const jsonLd = graph(personSchema(absoluteUrl(photo.src)), websiteSchema());
+
+const services = [
+  {
+    title: 'Programmatic SEO systems',
+    body: 'Python pipelines that pull from CMS and search APIs and turn keyword data into landing pages, built on reusable templates in Webflow, WordPress, and HubSpot.',
+  },
+  {
+    title: 'Technical SEO',
+    body: 'Sitemap architecture, canonicalization, indexation, and metadata, plus scripts that apply bulk fixes across hundreds of URLs at once.',
+  },
+  {
+    title: 'AI workflows for teams',
+    body: 'Claude skills with evals that package an expert SEO task, so non-technical teammates can run it and get consistent results.',
+  },
+];
+
+let n = 0;
+const next = () => String(++n).padStart(2, '0');
+---
+
+<BaseLayout description={SITE.description} path="/" jsonLd={jsonLd}>
+  <section class="wrap grid-12 gap-y-10 pt-16 pb-20 md:pt-28 md:pb-28">
+    <div class="col-span-12 lg:col-span-8">
+      <p class="mono-label mb-6">{SITE.jobTitle} at {SITE.employer.name}</p>
+      <h1 class="text-step-5 leading-[0.95] tracking-[-0.025em]">
+        Ajibola<br />Atoyebi<span class="text-accent">.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 flex flex-col justify-end gap-8 lg:col-span-4">
+      <p class="text-step-1 leading-snug">{SITE.positioning}</p>
+      <div class="flex flex-wrap gap-3">
+        <a class="btn btn-primary" href="/work">See the work</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <p class="mono-label normal-case tracking-normal">Based in Nigeria. Working remotely with US and Canadian teams.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <SectionHead number={next()} title="Selected work">
+      <a slot="aside" class="font-mono text-[0.8rem] link" href="/work">All work →</a>
+    </SectionHead>
+    <p class="mt-4 max-w-[62ch] text-muted md:ml-[calc(2/12*100%)]">
+      Client work at ViewEngine. Client names stay private until each client approves them.
+    </p>
+    <div>
+      {featured.map((entry, i) => <CaseCard entry={entry} index={i} />)}
+    </div>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number={next()} title="What I do" />
+    <div class="grid-12 gap-y-10 pt-10">
+      {
+        services.map((s) => (
+          <div class="col-span-12 md:col-span-4" data-reveal>
+            <h3 class="text-step-1">{s.title}</h3>
+            <p class="mt-3 text-muted">{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number={next()} title="Experience">
+      <a slot="aside" class="font-mono text-[0.8rem] link" href="/about">More about me →</a>
+    </SectionHead>
+    <div class="mt-8"><Timeline compact /></div>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="wrap mt-24">
+        <SectionHead number={next()} title="Latest writing">
+          <a slot="aside" class="font-mono text-[0.8rem] link" href="/writing">All writing →</a>
+        </SectionHead>
+        <PostList posts={posts} />
+      </section>
+    )
+  }
+
+  <section class="wrap mt-24">
+    <SectionHead number={next()} title="Earlier work">
+      <a slot="aside" class="font-mono text-[0.8rem] link" href="/work#earlier-work">Archive →</a>
+    </SectionHead>
+    <ul class="mt-6">
+      {
+        earlier.map((w) => (
+          <li class="grid-12 items-baseline gap-y-1 border-b border-rule py-4">
+            <span class="col-span-3 font-mono text-[0.8rem] text-muted md:col-span-2">{w.data.year ?? w.data.timeline}</span>
+            <span class="col-span-9 font-display text-step-1 md:col-span-3">
+              {w.data.kind === 'case' ? (
+                <a class="hover:text-accent" href={`/work/${w.id}`}>{w.data.shortTitle}</a>
+              ) : (
+                w.data.shortTitle
+              )}
+            </span>
+            <span class="col-span-12 text-[0.95em] text-muted md:col-span-7">{w.data.summary}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <ContactBlock number={next()} />
+</BaseLayout>

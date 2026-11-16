@@ -1,0 +1,26 @@
+---
+import { render } from 'astro:content';
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import { getWork, hasPage, type Work } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const { all } = await getWork();
+  const pages = all.filter(hasPage);
+  return pages.map((entry) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      related: entry.data.related
+        .map((id) => pages.find((p) => p.id === id))
+        .filter((p): p is Work => Boolean(p)),
+    },
+  }));
+}
+
+const { entry, related } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<CaseStudyLayout entry={entry} related={related}>
+  <Content />
+</CaseStudyLayout>

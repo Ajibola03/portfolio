@@ -1,0 +1,111 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { getWork } from '../../lib/content';
+import { displayClient, capitalize } from '../../lib/client';
+import { breadcrumbSchema, graph } from '../../lib/seo';
+
+const { featured, supporting, earlierCases, earlierOneliners } = await getWork();
+
+const jsonLd = graph(
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Work', path: '/work' },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Work"
+  description="Case studies from my work at ViewEngine on programmatic SEO, technical SEO, and AI workflows, plus earlier SaaS and web projects from 2019 to 2025."
+  path="/work"
+  jsonLd={jsonLd}
+>
+  <header class="wrap grid-12 gap-y-6 pt-16 pb-16 md:pt-24">
+    <h1 class="col-span-12 text-step-5 leading-[0.95] tracking-[-0.025em] md:col-span-7">Work</h1>
+    <p class="col-span-12 self-end text-step-1 leading-snug md:col-span-5">
+      Since August 2025 I have built SEO and AI systems for ViewEngine's clients. Client names stay private until each client approves them. Before that, I spent six years building SaaS products and websites.
+    </p>
+  </header>
+
+  <section class="wrap">
+    <SectionHead number="01" title="Case studies" />
+    <div>
+      {featured.map((entry, i) => <CaseCard entry={entry} index={i} headingLevel="h3" />)}
+    </div>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number="02" title="More client work at ViewEngine" />
+    <ul class="grid gap-px border border-rule bg-rule mt-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        supporting.map((w) => {
+          const c = displayClient(w);
+          return (
+            <li class="flex flex-col gap-3 bg-paper p-6" data-reveal>
+              <p class="mono-label">{c && capitalize(c.label)}</p>
+              <h3 class="text-step-1">{w.data.title}</h3>
+              <p class="text-[0.95em] text-muted">{w.data.summary}</p>
+              {w.data.platform && <p class="mt-auto pt-2 font-mono text-[0.75rem] text-muted">{w.data.platform}</p>}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number="03" title="Earlier work" id="earlier-work" />
+    <ul class="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-3">
+      {
+        earlierCases.map((w) => (
+          <li class="group relative" data-reveal>
+            {w.data.cover && (
+              <Picture formats={['avif', 'webp']}
+                src={w.data.cover}
+                alt={w.data.coverAlt!}
+                widths={[400, 640, 800]}
+                sizes="(min-width: 768px) 30vw, 100vw"
+                class="frame mb-5 h-auto w-full"
+                loading="lazy"
+              />
+            )}
+            <p class="mono-label mb-2">
+              {w.data.employer} · {w.data.year ?? w.data.timeline}
+            </p>
+            <h3 class="text-step-2">
+              <a class="no-underline after:absolute after:inset-0 group-hover:text-accent" href={`/work/${w.id}`}>
+                {w.data.shortTitle}
+              </a>
+            </h3>
+            <p class="mt-2 text-muted">{w.data.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="mt-16 border-t border-rule">
+      {
+        earlierOneliners.map((w) => (
+          <li class="grid-12 items-baseline gap-y-1 border-b border-rule py-4">
+            <span class="col-span-3 font-mono text-[0.8rem] text-muted md:col-span-2">{w.data.year}</span>
+            <span class="col-span-9 md:col-span-3">
+              <span class="font-display text-step-1">
+                {w.data.live && w.data.productUrl ? (
+                  <a class="link text-ink" href={w.data.productUrl} rel="noopener">{w.data.shortTitle}</a>
+                ) : (
+                  w.data.shortTitle
+                )}
+              </span>
+              {!w.data.live && <span class="font-mono text-[0.75rem] text-muted"> (no longer live)</span>}
+              <span class="block font-mono text-[0.75rem] text-muted">{w.data.employer}</span>
+            </span>
+            <span class="col-span-12 text-[0.95em] text-muted md:col-span-7">{w.data.summary}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

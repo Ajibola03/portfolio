@@ -1,0 +1,25 @@
+---
+import { SITE } from '../lib/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-rule">
+  <div class="wrap grid-12 gap-y-8 py-12">
+    <div class="col-span-12 md:col-span-6">
+      <p class="font-display text-step-1 leading-snug">
+        Have a project or a role in mind? <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </p>
+    </div>
+    <nav class="col-span-12 md:col-span-6 md:justify-self-end" aria-label="Elsewhere">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[0.8rem]">
+        <li><a class="text-muted hover:text-ink" href={SITE.links.linkedin} rel="me noopener">LinkedIn</a></li>
+        <li><a class="text-muted hover:text-ink" href={SITE.links.github} rel="me noopener">GitHub</a></li>
+        <li><a class="text-muted hover:text-ink" href={SITE.links.x} rel="me noopener">X</a></li>
+        <li><a class="text-muted hover:text-ink" href="/rss.xml">RSS</a></li>
+      </ul>
+    </nav>
+    <p class="col-span-12 mono-label normal-case tracking-normal">
+      © {year} {SITE.name}. Built with Astro, hosted on Netlify.
+    </p>
+  </div>
+</footer>

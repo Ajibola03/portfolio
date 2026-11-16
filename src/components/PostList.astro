@@ -1,0 +1,32 @@
+---
+import type { Post } from '../lib/content';
+import { formatDate, readingTime } from '../lib/content';
+
+interface Props {
+  posts: Post[];
+  headingLevel?: 'h2' | 'h3';
+}
+const { posts, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<ul class="mt-6">
+  {
+    posts.map((post) => (
+      <li class="group relative grid-12 gap-y-2 border-b border-rule py-6" data-reveal>
+        <p class="col-span-12 font-mono text-[0.8rem] text-muted md:col-span-2">
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+        </p>
+        <div class="col-span-12 md:col-span-8">
+          <Heading class="text-step-2">
+            <a class="no-underline after:absolute after:inset-0 group-hover:text-accent" href={`/writing/${post.id}`}>
+              {post.data.title}
+            </a>
+          </Heading>
+          <p class="mt-2 max-w-[62ch] text-muted">{post.data.description}</p>
+        </div>
+        <p class="col-span-12 font-mono text-[0.8rem] text-muted md:col-span-2 md:text-right">{readingTime(post.body)}</p>
+      </li>
+    ))
+  }
+</ul>
