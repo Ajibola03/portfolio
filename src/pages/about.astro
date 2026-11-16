@@ -7,9 +7,9 @@ import ContactBlock from '../components/ContactBlock.astro';
 import { SITE, absoluteUrl } from '../lib/site';
 import { STACK } from '../lib/experience';
 import { breadcrumbSchema, graph, personSchema } from '../lib/seo';
-import profile from '../assets/profile.png';
+import profile from '../assets/profile.jpg';
 
-const photo = await getImage({ src: profile, width: 360, format: 'png' });
+const photo = await getImage({ src: profile, width: 600, format: 'jpg' });
 const jsonLd = graph(
   {
     '@type': 'ProfilePage',
@@ -44,9 +44,9 @@ const jsonLd = graph(
     <div class="col-span-8 col-start-1 sm:col-span-5 md:col-span-3 md:col-start-10 md:self-end">
       <Picture formats={['avif', 'webp']}
         src={profile}
-        alt="Portrait of Ajibola Atoyebi"
-        width={360}
-        widths={[240, 360]}
+        alt="Ajibola Atoyebi standing outdoors under a tree, arms crossed, in a black T-shirt that reads Simplicity"
+        width={640}
+        widths={[320, 480, 640]}
         sizes="(min-width: 768px) 22vw, 60vw"
         class="frame h-auto w-full"
         loading="eager"

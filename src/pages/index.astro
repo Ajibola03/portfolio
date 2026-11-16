@@ -9,13 +9,13 @@ import PostList from '../components/PostList.astro';
 import { SITE, absoluteUrl } from '../lib/site';
 import { getWork, getPosts } from '../lib/content';
 import { graph, personSchema, websiteSchema } from '../lib/seo';
-import profile from '../assets/profile.png';
+import profile from '../assets/profile.jpg';
 
 const { featured, earlierCases, earlierOneliners } = await getWork();
 const posts = (await getPosts()).slice(0, 3);
 const earlier = [...earlierCases, ...earlierOneliners];
 
-const photo = await getImage({ src: profile, width: 360, format: 'png' });
+const photo = await getImage({ src: profile, width: 600, format: 'jpg' });
 const jsonLd = graph(personSchema(absoluteUrl(photo.src)), websiteSchema());
 
 const services = [
