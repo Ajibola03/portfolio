@@ -1,0 +1,98 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Timeline from '../components/Timeline.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { SITE, absoluteUrl } from '../lib/site';
+import { STACK } from '../lib/experience';
+import { breadcrumbSchema, graph, personSchema } from '../lib/seo';
+import profile from '../assets/profile.png';
+
+const photo = await getImage({ src: profile, width: 360, format: 'png' });
+const jsonLd = graph(
+  {
+    '@type': 'ProfilePage',
+    '@id': `${absoluteUrl('/about')}#page`,
+    url: absoluteUrl('/about'),
+    name: `About ${SITE.name}`,
+    inLanguage: 'en',
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    mainEntity: personSchema(absoluteUrl(photo.src)),
+  },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ]),
+);
+---
+
+<BaseLayout
+  title="About"
+  description="Ajibola Atoyebi is an AI Engineer at ViewEngine. Six years of full-stack SaaS work, now building programmatic SEO pipelines and AI workflows for teams."
+  path="/about"
+  ogType="profile"
+  jsonLd={jsonLd}
+>
+  <header class="wrap grid-12 gap-y-10 pt-16 pb-16 md:pt-24">
+    <div class="col-span-12 md:col-span-8">
+      <p class="mono-label mb-6">About</p>
+      <h1 class="text-step-4 leading-[1.02] tracking-[-0.02em]">
+        I build the systems behind pages that rank.
+      </h1>
+    </div>
+    <div class="col-span-8 col-start-1 sm:col-span-5 md:col-span-3 md:col-start-10 md:self-end">
+      <Picture formats={['avif', 'webp']}
+        src={profile}
+        alt="Portrait of Ajibola Atoyebi"
+        width={360}
+        widths={[240, 360]}
+        sizes="(min-width: 768px) 22vw, 60vw"
+        class="frame h-auto w-full"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </header>
+
+  <section class="wrap">
+    <div class="prose mx-auto">
+      <p class="text-step-1 leading-snug">
+        I'm Ajibola Atoyebi, Aji for short. I'm an AI Engineer at ViewEngine, a New York based company, where I build programmatic SEO pipelines, fix technical SEO at scale, and turn expert tasks into AI workflows the whole team can run.
+      </p>
+      <p>
+        Day to day, that means Python pipelines that pull from CMS and search APIs, scripts that apply bulk fixes across hundreds of URLs, and the unglamorous work of sitemaps, canonical tags, indexation, and metadata. I build and template pages on Webflow, WordPress, and HubSpot, and I package repeatable SEO tasks as Claude skills with evals so non-technical teammates get the same result I would.
+      </p>
+      <p>
+        Before ViewEngine I spent six years as a full-stack engineer. At 10X Ventures I built SaaS apps on Next.js, Blitz.js, and PostgreSQL that reached 15K+ active users, with APIs handling 50K+ secure transactions a month. For a Canadian tech firm I rebuilt a legacy product on Vue.js, Node.js, and PostgreSQL and cut server setup time by 60% with Dockerized deploys. At Shugaland I shipped React and TypeScript features for 10K+ monthly active users.
+      </p>
+      <p>
+        That background is why my SEO work looks like engineering. When a client needs a set of pages, I build the system that produces them, then make sure search engines can find every one.
+      </p>
+      <p>
+        I'm based in Nigeria and work remotely with teams in the US and Canada. The fastest way to reach me is <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. I'm also on <a href={SITE.links.linkedin} rel="me noopener">LinkedIn</a>, <a href={SITE.links.github} rel="me noopener">GitHub</a>, and <a href={SITE.links.x} rel="me noopener">X</a>, and my <a href={SITE.links.resume} rel="noopener">resume</a> is on Google Drive.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number="01" title="Experience" />
+    <div class="mt-8"><Timeline /></div>
+  </section>
+
+  <section class="wrap mt-24">
+    <SectionHead number="02" title="Stack" />
+    <dl class="grid-12 gap-y-6 pt-10">
+      {
+        STACK.map((g) => (
+          <div class="col-span-12 grid-12 border-b border-rule pb-5 md:col-span-6 md:block md:border-0 md:pb-0 lg:col-span-4">
+            <dt class="col-span-4 mono-label">{g.group}</dt>
+            <dd class="col-span-8 mt-1 md:mt-2">{g.items.join(', ')}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <ContactBlock number="03" />
+</BaseLayout>

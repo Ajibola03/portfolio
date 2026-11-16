@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/content';
+import { breadcrumbSchema, graph } from '../../lib/seo';
+
+const posts = await getPosts();
+const jsonLd = graph(
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Writing', path: '/writing' },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes from Ajibola Atoyebi on programmatic SEO, technical SEO, and building AI workflows that whole teams can use. Practical, with code where it helps."
+  path="/writing"
+  noindex={posts.length === 0}
+  jsonLd={jsonLd}
+>
+  <header class="wrap grid-12 gap-y-6 pt-16 pb-10 md:pt-24">
+    <h1 class="col-span-12 text-step-5 leading-[0.95] tracking-[-0.025em] md:col-span-7">Writing</h1>
+    <p class="col-span-12 self-end text-step-1 leading-snug md:col-span-5">
+      Notes on programmatic SEO, technical SEO, and AI workflows for teams. <a class="link" href="/rss.xml">Subscribe by RSS</a>.
+    </p>
+  </header>
+  <section class="wrap" aria-label="Posts">
+    {
+      posts.length > 0 ? (
+        <PostList posts={posts} headingLevel="h2" />
+      ) : (
+        <p class="border-t border-rule pt-8 text-muted">The first post is on its way.</p>
+      )
+    }
+  </section>
+</BaseLayout>

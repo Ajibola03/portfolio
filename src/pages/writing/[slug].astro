@@ -1,0 +1,26 @@
+---
+import { render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import { getPosts, getWork, hasPage, type Work } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const { all } = await getWork();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      related: post.data.related
+        .map((id) => all.find((w) => w.id === id && hasPage(w)))
+        .filter((w): w is Work => Boolean(w)),
+    },
+  }));
+}
+
+const { post, related } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout post={post} related={related}>
+  <Content />
+</PostLayout>

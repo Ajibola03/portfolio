@@ -1,0 +1,36 @@
+---
+import { EXPERIENCE } from '../lib/experience';
+
+interface Props {
+  /** Compact shows the first point only. */
+  compact?: boolean;
+  headingLevel?: 'h3' | 'h2';
+}
+const { compact = false, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<ol class="border-t border-rule">
+  {
+    EXPERIENCE.map((role) => (
+      <li class="grid-12 gap-y-2 border-b border-rule py-6" data-reveal>
+        <p class="col-span-12 font-mono text-[0.8rem] text-muted md:col-span-3">
+          <time>{role.start}</time> to <time>{role.end}</time>
+        </p>
+        <div class="col-span-12 md:col-span-9">
+          <Heading class="text-step-1">
+            {role.title}, <span class="text-muted">{role.company}</span>
+          </Heading>
+          {role.type && <p class="mono-label mt-1">{role.type}</p>}
+          <ul class="mt-3 max-w-[64ch] space-y-1 text-[0.95em]">
+            {(compact ? role.points.slice(0, 2) : role.points).map((p) => (
+              <li class="relative pl-5 before:absolute before:top-[0.8em] before:left-0 before:h-px before:w-2.5 before:bg-accent">
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    ))
+  }
+</ol>

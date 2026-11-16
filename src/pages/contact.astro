@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE } from '../lib/site';
+import { breadcrumbSchema, graph } from '../lib/seo';
+
+const jsonLd = graph(
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact' },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Ajibola Atoyebi about programmatic SEO, technical SEO, or AI workflow projects. Email hello@ajibola.dev or send a message with the form."
+  path="/contact"
+  jsonLd={jsonLd}
+>
+  <div class="wrap grid-12 gap-y-12 pt-16 md:pt-24">
+    <header class="col-span-12 md:col-span-5">
+      <p class="mono-label mb-6">Contact</p>
+      <h1 class="text-step-4 leading-[1.02] tracking-[-0.02em]">Let's talk.</h1>
+      <p class="mt-6 text-step-1 leading-snug">
+        Email me at <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>, or use the form.
+      </p>
+      <ul class="mt-10 space-y-2 font-mono text-[0.85rem]">
+        <li><a class="link" href={SITE.links.linkedin} rel="me noopener">LinkedIn</a></li>
+        <li><a class="link" href={SITE.links.github} rel="me noopener">GitHub</a></li>
+        <li><a class="link" href={SITE.links.x} rel="me noopener">X</a></li>
+      </ul>
+    </header>
+    <div class="col-span-12 md:col-span-6 md:col-start-7">
+      <ContactForm />
+    </div>
+  </div>
+</BaseLayout>

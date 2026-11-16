@@ -1,0 +1,172 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import MetaRow from '../components/MetaRow.astro';
+import type { Work } from '../lib/content';
+import { displayClient, capitalize } from '../lib/client';
+import { breadcrumbSchema, graph, ogPathFor, personRef } from '../lib/seo';
+import { SITE, absoluteUrl } from '../lib/site';
+
+interface Props {
+  entry: Work;
+  related: Work[];
+}
+const { entry, related } = Astro.props;
+const { data } = entry;
+const client = displayClient(entry);
+const path = `/work/${entry.id}`;
+const isEarlier = data.era === 'earlier';
+
+const productLabel = data.product;
+const metaItems = [
+  { label: 'Role', value: data.role },
+  { label: isEarlier ? 'Product' : 'Client', value: isEarlier ? productLabel : client && capitalize(client.label) },
+  { label: 'Platform', value: data.platform },
+  { label: 'Timeline', value: data.timeline },
+];
+
+const jsonLd = graph(
+  {
+    '@type': 'CreativeWork',
+    '@id': `${absoluteUrl(path)}#work`,
+    name: data.title,
+    headline: data.title,
+    description: data.description,
+    url: absoluteUrl(path),
+    image: absoluteUrl(ogPathFor(path)),
+    inLanguage: 'en',
+    author: personRef,
+    creator: personRef,
+    keywords: data.stack.join(', '),
+    ...(client ? { about: client.isPublic ? { '@type': 'Organization', name: client.label, ...(client.url ? { url: client.url } : {}) } : capitalize(client.label) } : {}),
+    isPartOf: { '@id': `${SITE.url}/#website` },
+  },
+  { '@type': 'Person', '@id': personRef['@id'], name: SITE.name, url: SITE.url },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Work', path: '/work' },
+    { name: data.shortTitle, path },
+  ]),
+);
+---
+
+<BaseLayout title={data.title} description={data.description!} path={path} ogType="article" jsonLd={jsonLd}>
+  <article>
+    <header class="wrap pt-12 md:pt-20">
+      <nav aria-label="Breadcrumb" class="mb-10 font-mono text-[0.8rem] text-muted">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-ink" href="/">Home</a> <span aria-hidden="true">/</span></li>
+          <li><a class="hover:text-ink" href={isEarlier ? '/work#earlier-work' : '/work'}>Work</a> <span aria-hidden="true">/</span></li>
+          <li aria-current="page" class="text-ink">{data.shortTitle}</li>
+        </ol>
+      </nav>
+      <div class="mx-auto max-w-[var(--measure)]">
+        <p class="mono-label mb-5">{isEarlier ? `Earlier work · ${data.employer}` : 'Case study · ViewEngine'}</p>
+        <h1 class="text-step-4 leading-[1.02] tracking-[-0.02em]">{data.title}</h1>
+        <p class="mt-6 text-step-1 leading-snug text-muted">{data.summary}</p>
+        <div class="mt-10"><MetaRow items={metaItems} /></div>
+        {
+          data.stack.length > 0 && (
+            <p class="mt-4 font-mono text-[0.8rem] text-muted">
+              <span class="mono-label mr-2">Stack</span>
+              {data.stack.join(' · ')}
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      data.cover && (
+        <figure class="wrap mt-14">
+          <Picture formats={['avif', 'webp']}
+            src={data.cover}
+            alt={data.coverAlt!}
+            widths={[640, 960, 1280, 1600]}
+            sizes="(min-width: 84rem) 80rem, calc(100vw - 2 * var(--gutter))"
+            class="frame h-auto w-full"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </figure>
+      )
+    }
+
+    {
+      data.resultHeadline && (
+        <aside class="wrap mt-14" aria-label="Result">
+          <div class="mx-auto max-w-[var(--measure)] border-y border-ink py-8">
+            <p class="mono-label mb-2 text-accent">Result</p>
+            <p class="font-display text-step-4 leading-[1.02] tracking-[-0.02em]">{data.resultHeadline}</p>
+          </div>
+        </aside>
+      )
+    }
+
+    <div class="wrap mt-12">
+      <div class="prose mx-auto"><slot /></div>
+    </div>
+
+    {
+      data.gallery.length > 0 && (
+        <section class="wrap mt-16" aria-label="Screenshots">
+          <div class="grid gap-10">
+            {data.gallery.map((g) => (
+              <figure>
+                <Picture formats={['avif', 'webp']}
+                  src={g.src}
+                  alt={g.alt}
+                  widths={[640, 960, 1280, 1600]}
+                  sizes="(min-width: 84rem) 80rem, calc(100vw - 2 * var(--gutter))"
+                  class="frame h-auto w-full"
+                  loading="lazy"
+                />
+              </figure>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      (client?.liveLinks.length || data.productUrl) && (
+        <div class="wrap mt-14">
+          <div class="mx-auto max-w-[var(--measure)]">
+            <h2 class="mono-label mb-3">See it live</h2>
+            <ul class="space-y-1">
+              {client?.liveLinks.map((l) => (
+                <li><a class="link" href={l.url} rel="noopener">{l.label}</a></li>
+              ))}
+              {data.productUrl &&
+                (data.live ? (
+                  <li><a class="link" href={data.productUrl} rel="noopener">{data.product}</a></li>
+                ) : (
+                  <li class="text-muted">{data.product} (no longer live)</li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      )
+    }
+  </article>
+
+  {
+    related.length > 0 && (
+      <aside class="wrap mt-24" aria-labelledby="related-title">
+        <div class="border-t border-ink pt-4">
+          <h2 id="related-title" class="mono-label">Related work</h2>
+        </div>
+        <ul class="grid gap-x-8 md:grid-cols-2">
+          {related.map((r) => (
+            <li class="group relative border-b border-rule py-6">
+              <p class="mono-label mb-2">{r.data.era === 'earlier' ? r.data.employer : capitalize(displayClient(r)?.label ?? '')}</p>
+              <a class="font-display text-step-2 leading-tight no-underline after:absolute after:inset-0 group-hover:text-accent" href={`/work/${r.id}`}>
+                {r.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
+</BaseLayout>

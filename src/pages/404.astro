@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page does not exist on ajibola.dev. It may have moved when the site was rebuilt. Try the work index, the about page, or the home page instead."
+  path="/404"
+  ogImage="/og/index.png"
+  noindex
+>
+  <div class="wrap grid-12 gap-y-6 pt-16 pb-8 md:pt-24">
+    <p class="col-span-12 font-mono text-[0.8rem] text-accent">404</p>
+    <h1 class="col-span-12 text-step-5 leading-[0.95] tracking-[-0.025em] md:col-span-8">This page doesn't exist.</h1>
+    <p class="col-span-12 max-w-[56ch] text-step-1 leading-snug md:col-span-7">
+      It may have moved when the site was rebuilt. Old project pages now live under Work.
+    </p>
+    <ul class="col-span-12 mt-6 flex flex-wrap gap-3">
+      <li><a class="btn btn-primary" href="/work">Work</a></li>
+      <li><a class="btn" href="/about">About</a></li>
+      <li><a class="btn" href="/">Home</a></li>
+    </ul>
+  </div>
+</BaseLayout>
