@@ -1,54 +1,47 @@
-# React + TypeScript + Vite
+# ajibola.dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio and writing site for Ajibola Atoyebi. Astro (static), TypeScript, Tailwind v4, hosted on Netlify.
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Command | What it does |
+|---|---|
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at http://localhost:4321 |
+| `npm run build` | Type check, build to `dist/`, then run the client leak check |
+| `npm run preview` | Serve the built site locally |
+| `npm run check:leaks` | Run the leak check on an existing `dist/` |
 
-## Expanding the ESLint configuration
+## Where things live
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/lib/site.ts`: name, title, email, social links, GA ID. Change identity details here only.
+- `src/lib/experience.ts`: the experience timeline and stack list.
+- `src/content/work/`: case studies, client cards, and earlier work (frontmatter schema in `src/content.config.ts`).
+  - `era: featured` + `kind: case`: ViewEngine case study with its own page.
+  - `era: supporting` + `kind: card`: small ViewEngine card on `/work`.
+  - `era: earlier`: older work. `kind: case` gets a page, `kind: oneliner` is a single line.
+- `src/content/writing/`: posts. `draft: true` keeps a post out of the build, sitemap, and RSS. The Writing nav link and the home "Latest writing" section appear once one post is published.
+- `src/pages/og/[...slug].png.ts`: OG images, generated at build time.
+- `scripts/check-client-leaks.mjs`: fails the build if a private client name appears in `dist/`.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Publishing a client name
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Every ViewEngine entry has a `client` block. While `public: false`, only `descriptor` is shown, and the build fails if the name, domain, or any alias appears anywhere in `dist/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Get written approval from ViewEngine and the client.
+2. In `src/content/work/<slug>.md` (or `.mdx`), set `client.public: true` and fill `liveLinks`.
+   - The Sunfish name appears in two files (`programmatic-landing-pages.mdx` and `technical-seo-remediation.mdx`). Flip both, or the leak check will fail on the other.
+3. Optionally add a logo to `src/assets/clients/<slug>.svg` (logo display is not built yet; add it to the case study header when the first logo arrives).
+4. Run `npm run build`. The leak check confirms the remaining private names stay hidden. Commit and push.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+All rendering of client identity goes through `displayClient()` in `src/lib/client.ts`. Never read `client.name` directly in a component.
+
+## Writing a post
+
+1. Add `src/content/writing/<slug>.md` with `title`, `description` (140 to 160 characters), `pubDate`, and optional `tags` and `related` (case study slugs).
+2. Remove `draft: true` when it is ready.
+3. Build. The post gets a page, an OG image, an RSS entry, and a sitemap entry.
+
+## Contact form
+
+Netlify Forms picks up the `contact` form in `/contact` at deploy time. Submissions show in the Netlify dashboard under Forms. Set an email notification there to forward them.
