@@ -14,6 +14,8 @@ const client = z.object({
   name: z.string(),
   url: z.url().optional(),
   liveLinks: z.array(link).default([]),
+  /** Extra strings the leak check treats as identifying (brand spellings, domain stems). Never rendered. */
+  aliases: z.array(z.string()).default([]),
 });
 
 const work = defineCollection({
@@ -24,7 +26,8 @@ const work = defineCollection({
         title: z.string(),
         /** Short title used on cards and in breadcrumbs. */
         shortTitle: z.string(),
-        description: z.string().min(140).max(160),
+        /** Meta description. Required (140 to 160 chars) for entries with their own page. */
+        description: z.string().optional(),
         summary: z.string(),
         /**
          * featured: long ViewEngine case study with its own page.
@@ -52,6 +55,9 @@ const work = defineCollection({
         coverAlt: z.string().optional(),
         gallery: z.array(z.object({ src: image(), alt: z.string() })).default([]),
         related: z.array(z.string()).default([]),
+      })
+      .refine((d) => d.kind !== 'case' || (d.description && d.description.length >= 140 && d.description.length <= 160), {
+        message: 'Case studies need a 140 to 160 character description',
       })
       .refine((d) => !d.cover || d.coverAlt, { message: 'coverAlt is required when cover is set' })
       .refine((d) => d.era === 'earlier' || d.client, { message: 'ViewEngine work needs a client object' }),

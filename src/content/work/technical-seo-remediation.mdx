@@ -1,0 +1,65 @@
+---
+title: Cleaning up indexation for a US fertility care provider
+shortTitle: Technical SEO remediation
+description: How I rebuilt a Webflow sitemap down to canonical, indexable pages only, removed 19 URLs that should never have been there, and planned the alt text fix.
+summary: A sitemap rebuilt down to canonical, indexable pages only, a data-only CMS collection that cannot publish stray pages, and a plan for alt text across 186 images.
+era: featured
+order: 2
+role: AI Engineer, ViewEngine
+platform: Webflow
+timeline: 2025 to present
+stack: [Webflow, Search Console, Scripting]
+resultHeadline: 19 URLs removed from the sitemap
+client:
+  public: false
+  descriptor: a US fertility care provider
+  name: Sunfish
+  url: https://joinsunfish.com
+  aliases: [joinsunfish]
+  liveLinks: []
+related: [programmatic-landing-pages, authority-statement-mapping-skill]
+---
+
+## The problem
+
+A sitemap is a list of pages you are asking search engines to index. This client's sitemap was asking for pages that should never be indexed: URLs that redirect elsewhere, pages that point to a different canonical URL, and pages marked `noindex`.
+
+Each of those sends a mixed signal. The sitemap says "index this" while the page says the opposite. Search engines spend crawl time on URLs that will never rank, and Search Console fills with warnings that hide the issues that matter.
+
+## What I built
+
+I rebuilt the sitemap so it lists canonical, indexable pages only. That meant removing 19 URLs:
+
+- URLs that redirect to another page
+- Non-canonical URLs, where the page names a different URL as its canonical
+- Pages marked `noindex`
+
+I also set up a data-only Webflow CMS collection with template publishing turned off. The collection holds structured content that other pages pull from, and it never generates pages of its own. That closes one common way stray, thin URLs end up in a Webflow sitemap.
+
+## How it works
+
+The rule for the sitemap is simple: a URL belongs in it only if it returns a 200, names itself as canonical, and is allowed to be indexed. Every URL that failed one of those checks came out.
+
+| Check | What fails it | Action |
+|---|---|---|
+| Returns 200 | Redirects | Remove; keep the destination |
+| Self-canonical | Canonical points elsewhere | Remove; keep the canonical URL |
+| Indexable | `noindex` in robots meta | Remove |
+
+A script did the repetitive part: requesting each sitemap URL and reading its status code, canonical tag, and robots meta.
+
+{/* TODO(metric): add the Search Console before/after (indexed pages, sitemap errors) once the next crawl settles. */}
+
+## What comes next
+
+The next phase is image accessibility and image search. The site has 186 images that need descriptive alt text. I am prioritizing content pages and clinic pages first, since those carry the most search intent and are where a screen reader user is most likely to land.
+
+## Result
+
+The sitemap now lists only canonical, indexable pages, with 19 URLs removed. The data-only collection means new CMS content cannot add stray pages back.
+
+The cleanup supports the [high-intent landing pages](/work/programmatic-landing-pages) I built for the same provider: those pages now sit in a sitemap that search engines can trust.
+
+## Stack
+
+Webflow, Google Search Console, scripting.
