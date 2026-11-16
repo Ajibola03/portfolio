@@ -1,0 +1,40 @@
+---
+import { NAV, SITE } from '../lib/site';
+import { getPosts } from '../lib/content';
+
+const hasPosts = (await getPosts()).length > 0;
+const items = NAV.filter((n) => !('requiresPosts' in n && n.requiresPosts) || hasPosts);
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => current === href || current.startsWith(`${href}/`);
+---
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-paper focus:px-3 focus:py-2">
+  Skip to content
+</a>
+<header class="border-b border-rule">
+  <div class="wrap flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 py-5">
+    <a href="/" class="font-display text-[1.35rem] font-medium tracking-tight no-underline" aria-label={`${SITE.name}, home`}>
+      Ajibola Atoyebi<span class="text-accent">.</span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="flex flex-wrap gap-x-6 gap-y-1 font-mono text-[0.8rem] tracking-wide">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'no-underline underline-offset-[0.35em] hover:underline',
+                  isActive(item.href) ? 'text-ink underline decoration-accent decoration-2' : 'text-muted hover:text-ink',
+                ]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

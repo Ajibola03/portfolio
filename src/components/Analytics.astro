@@ -1,0 +1,29 @@
+---
+import { SITE } from '../lib/site';
+// GA4, loaded on first interaction or 4s after the load event, whichever comes first.
+// Keeps the tag off the critical path so it never competes with LCP.
+// Only runs on the production domain so local and preview builds stay clean.
+---
+
+<script is:inline define:vars={{ id: SITE.gaId }}>
+  (function () {
+    if (location.hostname !== 'ajibola.dev' && location.hostname !== 'www.ajibola.dev') return;
+    var loaded = false;
+    var events = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      events.forEach(function (e) { removeEventListener(e, load); });
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+    }
+    events.forEach(function (e) { addEventListener(e, load, { once: true, passive: true }); });
+    addEventListener('load', function () { setTimeout(load, 4000); });
+  })();
+</script>
