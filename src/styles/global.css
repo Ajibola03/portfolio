@@ -1,8 +1,19 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/fraunces/full.css';
 @import '@fontsource-variable/source-sans-3/wght.css';
 @import '@fontsource-variable/source-sans-3/wght-italic.css';
 @import '@fontsource-variable/jetbrains-mono/index.css';
+
+/*
+  Fraunces: subset by scripts/subset-fraunces.sh (opsz axis, wght 400 to 600, SOFT fixed at 50).
+  Cuts the display font from 118KB to 51KB so serif headlines paint sooner.
+*/
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 600;
+  src: url('../assets/fonts/fraunces-subset.woff2') format('woff2-variations');
+}
 
 /*
   Design tokens. Light only in v1. To add dark mode later, redefine these
@@ -68,7 +79,6 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-variation-settings: 'SOFT' 50, 'WONK' 0;
     font-weight: 500;
     line-height: 1.08;
     letter-spacing: -0.01em;

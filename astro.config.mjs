@@ -17,7 +17,7 @@ const EXCLUDE = ['/404', '/contact/thanks', ...(hasPublishedPosts ? [] : ['/writ
 export default defineConfig({
   site: 'https://ajibola.dev',
   trailingSlash: 'never',
-  build: { format: 'file' },
+  build: { format: 'file', inlineStylesheets: 'always' },
   integrations: [
     mdx(),
     sitemap({
