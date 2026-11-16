@@ -1,0 +1,57 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Old SPA routes (2021 site) -> new structure. 301 = permanent.
+[[redirects]]
+  from = "/projects"
+  to = "/work"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projects/firstx"
+  to = "/work/firstx"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projects/sybg"
+  to = "/work/sybg"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projects/churchporch"
+  to = "/work/churchporch"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projects/*"
+  to = "/work#earlier-work"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"

@@ -38,7 +38,7 @@ const jsonLd = graph(
     author: personRef,
     creator: personRef,
     keywords: data.stack.join(', '),
-    ...(client ? { about: client.isPublic ? { '@type': 'Organization', name: client.label, ...(client.url ? { url: client.url } : {}) } : capitalize(client.label) } : {}),
+    ...(client ? { about: client.isPublic ? { '@type': 'Organization', name: client.label, ...(client.url ? { url: client.url } : {}) } : { '@type': 'Organization', description: capitalize(client.label) } } : {}),
     isPartOf: { '@id': `${SITE.url}/#website` },
   },
   { '@type': 'Person', '@id': personRef['@id'], name: SITE.name, url: SITE.url },

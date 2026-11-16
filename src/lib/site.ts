@@ -4,7 +4,7 @@ export const SITE = {
   name: 'Ajibola Atoyebi',
   shortName: 'Aji',
   jobTitle: 'AI Engineer',
-  employer: { name: 'ViewEngine', url: 'https://viewengine.ai' },
+  employer: { name: 'ViewEngine', url: 'https://www.viewengine.ai' },
   location: 'Nigeria',
   email: 'hello@ajibola.dev',
   homeTitle: 'Ajibola Atoyebi | AI Engineer, Programmatic SEO',
@@ -46,5 +46,7 @@ export const NAV = [
 ] as const;
 
 export function absoluteUrl(path: string): string {
-  return new URL(path, SITE.url).toString().replace(/\/$/, '') || SITE.url;
+  const url = new URL(path, SITE.url);
+  // Root keeps its slash (matches the sitemap); every other path has none (trailingSlash: 'never').
+  return url.pathname === '/' ? `${url.origin}/` : url.toString().replace(/\/$/, '');
 }
